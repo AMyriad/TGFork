@@ -2403,3 +2403,18 @@
 /datum/sprite_accessory/moth_markings/lightbearer
 	name = "Lightbearer"
 	icon_state = "lightbearer"
+
+/datum/sprite_accessory/ethereal_marks
+	icon = 'icons/mob/human/species/ethereal/ethereal_marks.dmi'
+
+/datum/sprite_accessory/frills/simple
+	name = "Simple"
+	icon_state = "simple"
+
+/datum/sprite_accessory/frills/short
+	name = "Short"
+	icon_state = "short"
+
+/datum/sprite_accessory/frills/aquatic
+	name = "Aquatic"
+	icon_state = "aqua"
