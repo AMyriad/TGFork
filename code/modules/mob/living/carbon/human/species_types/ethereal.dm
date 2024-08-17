@@ -172,6 +172,7 @@
 	var/list/features = ..()
 
 	features += "feature_ethcolor"
+	features += "feature_ethmark"
 
 	return features
 
