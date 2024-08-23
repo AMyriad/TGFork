@@ -29,10 +29,3 @@
 
 /datum/bodypart_overlay/simple/body_marking/lizard/get_accessory(name)
 	return SSaccessories.lizard_markings_list[name]
-
-/datum/bodypart_overlay/simple/body_marking/ethereal
-	dna_feature_key = "ethereal_mark"
-	applies_to = list(/obj/item/bodypart/head)
-
-/datum/bodypart_overlay/simple/body_marking/ethereal/get_accessory(name)
-	return SSaccessories.ethereal_mark_list[name]
