@@ -40,5 +40,5 @@
 /datum/preference/choiced/ethereal_mark/init_possible_values()
 	return assoc_to_keys_features(SSaccessories.ethereal_mark_list)
 
-/datum/preference/choiced/ethereal_mark/icon_for(value)
-	return generate_lizard_side_shot(SSaccessories.ethereal_mark_list[value], "eyes")
+/datum/preference/choiced/ethereal_mark/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["ethmark"] = value
