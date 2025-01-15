@@ -10,7 +10,6 @@
 	name = "raw anomaly core"
 	desc = "You shouldn't be seeing this. Someone screwed up."
 	icon = 'icons/obj/devices/new_assemblies.dmi'
-	icon_state = "broken_state"
 
 	/// Anomaly type
 	var/anomaly_type

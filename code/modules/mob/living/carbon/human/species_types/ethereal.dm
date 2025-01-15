@@ -5,6 +5,7 @@
 	mutantlungs = /obj/item/organ/internal/lungs/ethereal
 	mutantstomach = /obj/item/organ/internal/stomach/ethereal
 	mutanttongue = /obj/item/organ/internal/tongue/ethereal
+	mutanteyes = /obj/item/organ/internal/eyes/ethereal
 	mutantheart = /obj/item/organ/internal/heart/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	exotic_bloodtype = "LE"

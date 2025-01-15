@@ -103,6 +103,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /proc/create_consistent_human_dna(mob/living/carbon/human/target)
 	target.dna.features["mcolor"] = COLOR_VIBRANT_LIME
 	target.dna.features["ethcolor"] = COLOR_WHITE
+	target.dna.features["ethmark"] = get_consistent_feature_entry(SSaccessories.ethereal_mark_list)
 	target.dna.features["lizard_markings"] = get_consistent_feature_entry(SSaccessories.lizard_markings_list)
 	target.dna.features["ears"] = get_consistent_feature_entry(SSaccessories.ears_list)
 	target.dna.features["frills"] = get_consistent_feature_entry(SSaccessories.frills_list)
