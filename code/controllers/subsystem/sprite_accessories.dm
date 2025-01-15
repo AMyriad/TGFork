@@ -106,7 +106,7 @@ SUBSYSTEM_DEF(accessories) // just 'accessories' for brevity
 	pod_hair_list = init_sprite_accessory_subtypes(/datum/sprite_accessory/pod_hair)[DEFAULT_SPRITE_LIST]
 	ethereal_mark_list = init_sprite_accessory_subtypes(/datum/sprite_accessory/ethereal_mark)[DEFAULT_SPRITE_LIST]
 
-/// This proc just intializes all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
+/// This proc just initializes all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
 /datum/controller/subsystem/accessories/proc/init_hair_gradients()
 	hair_gradients_list = list()
 	facial_hair_gradients_list = list()
