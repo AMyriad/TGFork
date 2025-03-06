@@ -4,9 +4,10 @@
 /obj/structure/grille
 	desc = "A flimsy framework of iron rods."
 	name = "grille"
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "grille"
+	icon = 'icons/obj/smooth_structures/grille.dmi'
+	icon_state = "grille-0"
 	base_icon_state = "grille"
+	appearance_flags = KEEP_TOGETHER
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSGRILLE | PASSWINDOW
@@ -15,6 +16,10 @@
 	armor_type = /datum/armor/structure_grille
 	max_integrity = 50
 	integrity_failure = 0.4
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_GRILLE
+	canSmoothWith = SMOOTH_GROUP_GRILLE
+	var/holes = 0 // Bitflag
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	/// Whether or not we're disappearing but dramatically
@@ -37,19 +42,38 @@
 
 /obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
+	var/ratio = atom_integrity / max_integrity
+	ratio = CEILING(ratio*4, 1) * 25
+
+	if(ratio>75)
+		return
+
+	if(broken)
+		holes = (holes | 16) //16 is the biggest hole
+		update_appearance()
+		return
+
+	holes = (holes | (1 << rand(0,3))) // Add random holes between 1 and 8
+
 	update_appearance()
 
 /obj/structure/grille/update_appearance(updates)
-	if(QDELETED(src) || broken)
+	if(QDELETED(src))
 		return
 
 	. = ..()
-	if((updates & UPDATE_SMOOTHING) && (smoothing_flags & USES_SMOOTHING))
+	if((updates & UPDATE_SMOOTHING) && (smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)))
 		QUEUE_SMOOTH(src)
 
-/obj/structure/grille/update_icon_state()
-	icon_state = "[base_icon_state][((atom_integrity / max_integrity) <= 0.5) ? "50_[rand(0, 3)]" : null]"
-	return ..()
+/obj/structure/grille/update_icon(updates=ALL)
+	. = ..()
+	if(QDELETED(src))
+		return
+
+	for(var/i = 0; i < 5; i++)
+		var/mask = 1 << i
+		if(holes & mask)
+			filters += filter(type="alpha", icon = icon('icons/obj/smooth_structures/grille.dmi', "broken_[i]"), flags = MASK_INVERSE)
 
 /obj/structure/grille/examine(mob/user)
 	. = ..()
@@ -394,13 +418,15 @@
 	return !!powernet.get_electrocute_damage()
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement
-	icon_state = "brokengrille"
+	icon_state = "grille_broken"
 	density = FALSE
 	broken = TRUE
 	rods_amount = 1
 
 /obj/structure/grille/broken/Initialize(mapload)
 	. = ..()
-	take_damage(max_integrity * 0.6)
+	holes = (holes | 16)
+	update_integrity(20)
+	update_appearance()
 
 #undef CLEAR_TILE_MOVE_LIMIT
