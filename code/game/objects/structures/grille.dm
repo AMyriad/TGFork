@@ -7,7 +7,6 @@
 	icon = 'icons/obj/smooth_structures/grille.dmi'
 	icon_state = "grille-0"
 	base_icon_state = "grille"
-	appearance_flags = KEEP_TOGETHER
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSGRILLE | PASSWINDOW
@@ -49,7 +48,7 @@
 		return
 
 	if(broken)
-		holes = (holes | 16) //16 is the biggest hole
+		holes = (holes | 16) // 16 is the biggest hole
 		update_appearance()
 		return
 
@@ -58,11 +57,11 @@
 	update_appearance()
 
 /obj/structure/grille/update_appearance(updates)
-	if(QDELETED(src))
+	if(QDELETED(src) || broken)
 		return
 
 	. = ..()
-	if((updates & UPDATE_SMOOTHING) && (smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)))
+	if((updates & UPDATE_SMOOTHING) && (smoothing_flags & USES_SMOOTHING))
 		QUEUE_SMOOTH(src)
 
 /obj/structure/grille/update_icon(updates=ALL)
@@ -237,6 +236,7 @@
 	if(!tool.use_tool(src, user, 0, volume=100))
 		return FALSE
 	set_anchored(!anchored)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	user.visible_message(span_notice("[user] [anchored ? "fastens" : "unfastens"] [src]."), \
 		span_notice("You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor."))
 	return ITEM_INTERACT_SUCCESS
@@ -323,7 +323,7 @@
 /obj/structure/grille/atom_break()
 	. = ..()
 	if(!broken)
-		icon_state = "brokengrille"
+		icon_state = "grille_broken"
 		set_density(FALSE)
 		atom_integrity = 20
 		broken = TRUE
@@ -333,10 +333,9 @@
 
 /obj/structure/grille/proc/repair_grille()
 	if(broken)
-		icon_state = "grille"
-		set_density(TRUE)
-		atom_integrity = max_integrity
-		broken = FALSE
+		var/obj/structure/grille/new_grille = new /obj/structure/grille(loc)
+		transfer_fingerprints_to(new_grille)
+		qdel(src)
 		rods_amount = 2
 		return TRUE
 	return FALSE

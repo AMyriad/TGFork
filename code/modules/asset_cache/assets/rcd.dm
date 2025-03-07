@@ -28,7 +28,7 @@
 						sprite_icon = uni_icon('icons/hud/radial.dmi', "windowtype")
 					else if(path == /obj/structure/window/fulltile || path == /obj/structure/window/reinforced/fulltile)
 						sprite_icon = uni_icon(initial(path.icon), initial(path.icon_state))
-						sprite_icon.blend_icon(uni_icon('icons/obj/structures.dmi', "grille"), ICON_UNDERLAY)
+						sprite_icon.blend_icon(uni_icon('icons/obj/smooth_structures/grille.dmi', "grille-0"), ICON_UNDERLAY)
 
 				//icons for solid airlocks have an added solid overlay on top of their glass icons
 				else if(ispath(path, /obj/machinery/door/airlock))

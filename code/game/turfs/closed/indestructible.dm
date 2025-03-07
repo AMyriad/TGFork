@@ -232,7 +232,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 /turf/closed/indestructible/opsglass/Initialize(mapload)
 	. = ..()
 	icon_state = null
-	underlays += mutable_appearance('icons/obj/structures.dmi', "grille", layer - 0.01)
+	underlays += mutable_appearance('icons/obj/smooth_structures/grille.dmi', "grille-0", layer - 0.01)
 	underlays += mutable_appearance('icons/turf/floors.dmi', "plating", layer - 0.02)
 
 /turf/closed/indestructible/fakedoor
@@ -374,8 +374,8 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 
 /turf/closed/indestructible/grille
 	name = "grille"
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "grille"
+	icon = 'icons/obj/smooth_structures/grille.dmi'
+	icon_state = "grille-0"
 	base_icon_state = "grille"
 
 /turf/closed/indestructible/grille/Initialize(mapload)
