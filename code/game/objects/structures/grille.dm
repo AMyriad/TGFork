@@ -57,7 +57,7 @@
 	update_appearance()
 
 /obj/structure/grille/update_appearance(updates)
-	if(QDELETED(src) || broken)
+	if(QDELETED(src))
 		return
 
 	. = ..()
@@ -323,18 +323,17 @@
 /obj/structure/grille/atom_break()
 	. = ..()
 	if(!broken)
-		icon_state = "grille_broken"
-		set_density(FALSE)
-		atom_integrity = 20
-		broken = TRUE
+		var/obj/structure/grille/broken_grille = new /obj/structure/grille/broken(loc)
+		transfer_fingerprints_to(broken_grille)
+		qdel(src)
 		rods_amount = 1
 		var/obj/item/dropped_rods = new rods_type(drop_location(), rods_amount)
 		transfer_fingerprints_to(dropped_rods)
 
 /obj/structure/grille/proc/repair_grille()
 	if(broken)
-		var/obj/structure/grille/new_grille = new /obj/structure/grille(loc)
-		transfer_fingerprints_to(new_grille)
+		var/obj/structure/grille/repaired_grille = new /obj/structure/grille(loc)
+		transfer_fingerprints_to(repaired_grille)
 		qdel(src)
 		rods_amount = 2
 		return TRUE
